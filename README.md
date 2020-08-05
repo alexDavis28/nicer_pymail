@@ -17,6 +17,15 @@ Confirm the package is installed with:
 pip show nicer_pymail
 ```
 
+## Creating a gmail account
+To use this code you will need a gmail account that allows access from less secure apps. You could do this on your personal account, however that is an **extremely bad idea** as it would make your personal account vulnerable
+
+First [create a google account.](https://accounts.google.com/Signup).
+
+Then, [follow this link.](https://myaccount.google.com/lesssecureapps) and turn on `Allow less secure apps`. You will receive some security alert emails, but that's why you made a new account.
+
+Note down the email address and password.
+
 ## Running the code
 If you have installed the package in a virtual environment, the code will only run when the virtual environment is active. To run the code, using a terminal, navigate to the directory where the code is, if you are using a virtual environment confirm that it is activated, then run:
 ```
@@ -134,5 +143,3 @@ The first way of adding attachments defines the file paths during initialisation
 
 ## Disclaimer
 This package is not great, most of it was written far too late at night, and I have honestly no idea what I'm doing. This is mostly a personal project made for fun, but any suggestions are appreciated. :) 
-
-
