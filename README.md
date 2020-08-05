@@ -33,8 +33,8 @@ from nicer_pymail import Client, Email
 client = Client("example_email@gmail.com", "password")
 
 message = Email(
-    subject_line="Hello There!",
-    message_plaintext="General Kenobi!",
+    subject="Hello There!",
+    plaintext="General Kenobi!",
 )
 
 client.send_email("example_email2@gmail.com", message)
@@ -73,8 +73,8 @@ html_text = """\
 """
 
 message = Email(
-    subject_line="HTML email",
-    message_plaintext="Hi,\nI am sending this email with python!\nThis is cool.",
+    subject="HTML email",
+    plaintext="Hi,\nI am sending this email with python!\nThis is cool.",
     html=html_text
 )
 
@@ -91,16 +91,16 @@ client = Client("example_email@gmail.com", "password")
 file_path = "C:\\Users\\Alex\\Desktop\\file.pdf"
 
 message = Email(
-    subject_line="Hello There!",
-    message_plaintext="General Kenobi!",
+    subject="Hello There!",
+    plaintext="General Kenobi!",
     attachments = [file_path]
 )
 
 # Or:
 
 message = Email(
-    subject_line="Hello There!",
-    message_plaintext="General Kenobi!"
+    subject="Hello There!",
+    plaintext="General Kenobi!"
 )
 
 message.add_attachment(file_path)

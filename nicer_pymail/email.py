@@ -1,9 +1,9 @@
 class Email:
-    def __init__(self, subject_line: str = "None", message_plaintext: str = "None", attachments: list = [],
+    def __init__(self, subject: str = "None", plaintext: str = "None", attachments: list = [],
                  from_address: str = None,
                  to_address: str = None, html: str = None):
-        self.subject = subject_line
-        self.plaintext = message_plaintext
+        self.subject = subject
+        self.plaintext = plaintext
         self.attachments = attachments
         self.from_address = from_address
         self.to_address = to_address
