@@ -1,7 +1,28 @@
 # nicer_pymail
 Python package to make interfacing with email systems (mostly gmail) easier
 
+# Setup
+This package is still being worked on, and isn't on pypi, so this section will explain how to install the package if you want to test it.
 
+## Making a virtualenv
+As the package is still in development, I would highly recommend installing it in a virtual environment. If you don't already know who to do that, [this tutorial is an excellent guide for how to set one up.](https://docs.python-guide.org/dev/virtualenvs/#lower-level-virtualenv)
+
+## Installing the package
+With the virtual environment active (assuming you have made one), run the following command:
+```
+pip install git+https://github.com/justsomeonenamedalex/nicer_pymail
+```
+Confirm the package is installed with:
+```
+pip show nicer_pymail
+```
+
+## Running the code
+If you have installed the package in a virtual environment, the code will only run when the virtual environment is active. To run the code, using a terminal, navigate to the directory where the code is, if you are using a virtual environment confirm that it is activated, then run:
+```
+python {filename}.py
+```
+In the above, replace `{filename}` with the name of whatever file you are running. You may have to replace `python` with `python3` or `python3.8` etc, depending on your installation
 # Quickstart
 This should give you a basic understanding of how to use this package
 
@@ -113,3 +134,5 @@ The first way of adding attachments defines the file paths during initialisation
 
 ## Disclaimer
 This package is not great, most of it was written far too late at night, and I have honestly no idea what I'm doing. This is mostly a personal project made for fun, but any suggestions are appreciated. :) 
+
+
