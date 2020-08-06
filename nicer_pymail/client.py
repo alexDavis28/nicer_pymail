@@ -67,6 +67,8 @@ class Client:
 
         if email.attachments:
             for file in email.attachments:
+                if email.attachments.count(file) > 1:
+                    raise DuplicateAttachment(file)
                 try:
                     with open(file, "rb") as f:
                         attachment_part = MIMEApplication(

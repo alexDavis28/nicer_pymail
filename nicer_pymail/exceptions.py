@@ -22,3 +22,11 @@ class AttachmentNotFoundException(EmailException):
 
     def __str__(self):
         return f"This file wasn't found: {self.file}"
+
+
+class DuplicateAttachment(EmailException):
+    def __init__(self, file: str):
+        self.file = file
+
+    def __str__(self):
+        return f"Multiple copies of the same file can't be attached: {self.file}"
