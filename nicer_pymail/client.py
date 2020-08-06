@@ -1,6 +1,10 @@
 import smtplib
 import ssl
+import imaplib
 from os.path import basename
+import os
+from email.header import decode_header
+import email as py_email
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
@@ -102,3 +106,66 @@ class Client:
             server.sendmail(self.email_address, rcpt, message.as_string())
         if self.do_print:
             print("Sent email")
+
+    def get_emails(self, inbox: str = "INBOX", limit=10):
+
+        emails = []
+
+        imap = imaplib.IMAP4_SSL(self.incoming_server)
+        imap.login(self.email_address, self.password)
+
+        imap.select(inbox)
+
+        _, data = imap.search(None, "ALL")
+
+        nums = data[0].split()[::-1]
+
+        if len(nums) > limit:
+            nums = nums[:limit]
+
+        for num in nums:
+            # print(data[0])
+            _, msg_data = imap.fetch(num, "(RFC822)")
+            email = Email()
+
+            for response_part in msg_data:
+                if isinstance(response_part, tuple):
+                    # msg = py_email.message_from_bytes(response_part[1])
+                    #
+                    # subject = decode_header(msg["Subject"])[0][0]
+                    # from_address = msg.get("From")
+
+                    attachments = []
+
+                    msg = py_email.message_from_bytes(response_part[1])
+                    from_address = msg["from"]
+                    subject = msg["subject"]
+                    to_address = msg["to"]
+
+                    if msg.is_multipart():
+                        plaintext = ""
+                        html = None
+                        for part in msg.get_payload():
+                            content_disposition = str(part.get("Content-Disposition"))
+
+                            if part.get_content_type() == "text/plain" and "attachment" not in content_disposition:
+                                plaintext = part.get_payload()
+
+                            elif part.get_content_type() == "text/html" and "attachment" not in content_disposition:
+                                html = part.get_payload()
+
+                            elif "attachment" in content_disposition:
+                                file = [part.get_filename(), part.get_payload(decode=True)]
+                                attachments.append(file)
+
+            email.subject = subject
+            email.from_address = from_address
+            email.recipients = to_address
+            email.plaintext = plaintext
+            email.html = html
+            email.attachments = attachments
+            emails.append(email)
+
+        imap.close()
+
+        return emails
