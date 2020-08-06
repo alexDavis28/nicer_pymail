@@ -141,5 +141,23 @@ The attachments of the email are stored as a list, so there are two ways of addi
 The first way of adding attachments defines the file paths during initialisation as part of a list. The second way calls a method of the `Email` object to just add the attachment to the internal list.
 **The file path must be an absolute one.**
 
+## Using CC and BCC
+```python
+from nicer_pymail import Client, Email
+
+client = Client("example_email@gmail.com", "password")
+
+message = Email(
+    subject="Hello There!",
+    plaintext="General Kenobi!",
+)
+
+to_address = "example2@gmail.com"
+cc_addresses = ["example3@gmail.com", "example4@example.com"]
+bcc_addresses = ["example5@example.com"]
+
+client.send_email("example_email2@gmail.com", message, cc=cc_addresses, bcc=bcc_addresses)
+```
+The above code will send the email to `example2@gmail.com` as well as `example3@gmail.com` and `example4@example.com`. `example5@example.com` will be bcc'ed the email.
 ## Disclaimer
 This package is not great, most of it was written far too late at night, and I have honestly no idea what I'm doing. This is mostly a personal project made for fun, but any suggestions are appreciated. :) 
