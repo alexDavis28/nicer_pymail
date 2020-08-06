@@ -39,12 +39,17 @@ class Client:
         if self.do_print:
             print("Sent email")
 
-    def send_email(self, recipient_email: str, email: Email):
+    def send_email(self, recipient_email: str, email: Email, cc: list = [], bcc: list = []):
         message = MIMEMultipart("alternative")
 
         message["Subject"] = email.subject
         message["From"] = self.email_address
         message["To"] = recipient_email
+
+        if cc:
+            message["Cc"] = ",".join(cc)
+
+        rcpt = cc + bcc + [recipient_email]
 
         text = email.plaintext
 
@@ -86,6 +91,6 @@ class Client:
             except smtplib.SMTPAuthenticationError:
                 raise AuthenticationException
 
-            server.sendmail(self.email_address, recipient_email, message.as_string())
+            server.sendmail(self.email_address, rcpt, message.as_string())
         if self.do_print:
             print("Sent email")
