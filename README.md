@@ -42,7 +42,7 @@ from nicer_pymail import Client
 client = Client("example_email@gmail.com", "password")
 ```
 The above code creates a client object that is used to log into the smtp server.
-By default, the object treats the email address as a gmail one, to use a different host specify it with the keyword argument `host`.
+By default, the object treats the email address as a gmail one, to use a different host specify it with the keywords argument `outgoing_server` and `incoming_server`.
 
 ## Sending a plaintext email
 ```python
