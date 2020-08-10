@@ -158,6 +158,40 @@ bcc_addresses = ["example5@example.com"]
 
 client.send_email("example_email2@gmail.com", message, cc=cc_addresses, bcc=bcc_addresses)
 ```
+
 The above code will send the email to `example2@gmail.com` as well as `example3@gmail.com` and `example4@example.com`. `example5@example.com` will be bcc'ed the email.
+
+## Getting emails
+```python
+from nicer_pymail import Client
+
+client = Client("example_email@gmail.com", "password")
+
+emails = client.get_emails(limit = 5)
+for message in emails:
+    print(f"Message subject: {message.subject}")
+    print(f"Message plaintext: {message.plaintext}")
+    print(f"Message from: {message.from_address}")
+    print(f"Message html: {message.html}")
+    print(f"Message to: {message.recipients}")
+```
+The above code will get and display the 5 most recent emails sent to the account. The emails are stored as `nicer_pymail.Email` objects, so are simple to use if you understand using the Email objects to send emails.
+
+## Downloading attachments
+```python
+from nicer_pymail import Client
+
+client = Client("example_email@gmail.com", "password")
+
+emails = client.get_emails(limit = 5)
+for email in emails:
+    if email.attachments:
+        for file in email.attachments:
+            f = open(file[0])
+            f.write(file[1])
+            f.close()
+```
+The above code gets the 5 most recent emails, and for each one that has attachments it downloads all the attachments. Each attachment to an email is stored as a list in the list Email.attachments. The first element of the list representing an attachment is the name of the attachment, and the second is the bytes of the attachment.
+
 ## Disclaimer
 This package is not great, most of it was written far too late at night, and I have honestly no idea what I'm doing. This is mostly a personal project made for fun, but any suggestions are appreciated. :) 
